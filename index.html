@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlearning Benevolence: An Inquiry into Active Withholding</title>
+    <style>
+        :root {
+            --bg-color: #fcfbf9;
+            --text-color: #1a1a1a;
+            --accent-color: #5c2c16;
+            --accent-light: #f4efe9;
+            --border-color: #d1c9bc;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, Cambria, serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        header {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 2px solid var(--text-color);
+            padding: 4rem 0;
+        }
+
+        .meta-data {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        blockquote {
+            font-style: italic;
+            border-left: 3px solid var(--text-color);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+        }
+
+        .btn-scroll {
+            align-self: flex-start;
+            background: var(--text-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: background var(--transition-speed);
+        }
+
+        .btn-scroll:hover {
+            background: var(--accent-color);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Sovereign Note Box */
+        .sovereign-note {
+            background-color: var(--accent-light);
+            border: 1px dashed var(--accent-color);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .sovereign-note h3 {
+            text-transform: uppercase;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Interactive Pivot Module */
+        .pivot-module {
+            background: var(--accent-light);
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+
+        .toggle-container {
+            display: inline-flex;
+            align-items: center;
+            background: #e5ded4;
+            padding: 0.4rem;
+            border-radius: 30px;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            z-index: 2;
+            transition: color var(--transition-speed);
+            border-radius: 20px;
+        }
+
+        .toggle-btn.active {
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .pivot-text-display {
+            font-size: 2.2rem;
+            font-weight: 700;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.5s ease;
+        }
+
+        .pivot-explanation {
+            font-size: 1rem;
+            color: #444;
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .timeline-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .map-trigger {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 0;
+            margin-top: 1rem;
+            display: block;
+        }
+
+        .map-panel {
+            display: none;
+            margin-top: 1.5rem;
+            background: #f0eae1;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        /* Accordion Table Styles */
+        .accordion-table {
+            margin-top: 2rem;
+        }
+
+        .accordion-row {
+            border: 1px solid var(--border-color);
+            margin-bottom: 0.5rem;
+            background: var(--bg-color);
+        }
+
+        .accordion-header {
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            background: var(--accent-light);
+            font-weight: bold;
+            user-select: none;
+        }
+
+        .accordion-header:hover {
+            background: #eae3d8;
+        }
+
+        .accordion-header::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        .accordion-row.open .accordion-header::after {
+            content: '−';
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-color);
+        }
+
+        /* Reflection Journal System */
+        .journal-container {
+            margin-top: 2rem;
+        }
+
+        .query-box {
+            margin-bottom: 2rem;
+        }
+
+        .query-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .query-input {
+            width: 100%;
+            height: 120px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+        }
+
+        .query-input:focus {
+            outline: 2px solid var(--accent-color);
+        }
+
+        .journal-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-action {
+            background: var(--text-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .btn-action:hover {
+            background: var(--accent-color);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-light);
+        }
+
+        .privacy-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Event Card */
+        .event-card {
+            background: var(--text-color);
+            color: var(--bg-color);
+            padding: 3rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .event-card h3 {
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .event-date {
+            font-size: 1.4rem;
+            color: var(--border-color);
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .btn-rsvp {
+            background: var(--bg-color);
+            color: var(--text-color);
+            border: none;
+            padding: 1rem 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-rsvp:hover {
+            background: var(--accent-light);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .container { padding: 1rem; }
+            .pivot-text-display { font-size: 1.5rem; }
+            .pivot-module { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Hero Header -->
+        <header>
+            <div class="meta-data">Prepared for Young Friends and Seekers of Right Relationship • July 14, 2026</div>
+            <h1>Unlearning Benevolence</h1>
+            <p style="font-size: 1.3rem; font-weight: 500;">An Inquiry into 'Active Withholding' and the Path to Decolonial Repair</p>
+            <div class="meta-data" style="margin-top: 0.5rem; margin-bottom: 0;">Author: Jeff Kisling</div>
+            
+            <blockquote>
+                "We are our stories, stories that can be both prison and the crowbar to break open the door of that prison; we make stories to save ourselves or to trap ourselves or others... Liberation is always in part a storytelling process: breaking stories, breaking silences, making new stories."
+                <div style="text-align: right; margin-top: 0.5rem; font-size: 1rem; font-weight: bold;">— Rebecca Solnit, Silence Is Broken</div>
+            </blockquote>
+
+            <button class="btn-scroll" onclick="document.getElementById('sovereign-note').scrollIntoView({behavior: 'smooth'});">Begin Inquiry</button>
+        </header>
+
+        <!-- Sovereign Note -->
+        <section id="sovereign-note">
+            <div class="sovereign-note">
+                <h3>Sovereign Note on Historical Integrity</h3>
+                <p style="font-size: 1rem; margin-bottom: 0; font-style: italic;">
+                    In the creation of this guide, a deliberate and non-negotiable choice has been made to purge the historical record of any artificial, AI-generated drafts, templates, or fabricated documents. We reside in a cultural condition saturated with shortcuts—pre-packaged templates that turn structural violence into smooth, frictionless jargon. To unlearn benevolence, we must begin with uncompromised materials. Every name, date, cause of death, and verbatim quote in the pages that follow is grounded strictly in primary historical research, published journals of Friends, and the lived oral testimonies of Indigenous partners who walked the road beside us.
+                </p>
+            </div>
+        </section>
+
+        <!-- 1. The Grammatical Pivot -->
+        <section id="grammatical-pivot">
+            <h2>1. The Grammatical Pivot</h2>
+            <p>Plain speech is the oldest of the Quaker testimonies, yet it is the first we surrender when our comfort is threatened. For several years, we have operated under the banner of a gentle, passive phrase to describe the vast blank spaces in our Quaker educations regarding our role in the forced cultural assimilation of Indigenous children.</p>
+            
+            <p>But there is a dangerous, seductive trap built directly into the grammar of passive framing. It functions as a comforting "move to innocence," converting structural erasure into a personal educational deficiency. The raw material of our history demands a grammatical conversion.</p>
+
+            <!-- Interactive Toggle Module -->
+            <div class="pivot-module">
+                <div class="toggle-container">
+                    <button id="btn-passive" class="toggle-btn active" onclick="setGrammarPivot('passive')">Passive Voice</button>
+                    <button id="btn-active" class="toggle-btn" onclick="setGrammarPivot('active')">Active Voice</button>
+                </div>
+                <div id="pivot-display" class="pivot-text-display">"What did not reach us."</div>
+                <div id="pivot-explanation" class="pivot-explanation">This framing implies a historical misfortune without an agent—like a letter accidentally lost in the mail. It shields us from responsibility.</div>
+            </div>
+
+            <p>This ethical pivot requires us to distinguish between two fundamentally different types of 'not knowing':</p>
+            <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                <li><strong>Missing Knowledge:</strong> Data or facts that are absent simply due to a lack of exposure. The remedy is simple: read, study, and listen to fill the gap.</li>
+                <li><strong>Withheld Knowledge:</strong> Truth intentionally kept on the other side of an institutional boundary to preserve a moral self-image. You cannot study your way across a withholding; it is a break in a relationship that requires building an accountable relational channel.</li>
+            </ul>
+        </section>
+
+        <!-- 2. The Sincerity of the Shield -->
+        <section id="sincerity-shield">
+            <h2>2. The Sincerity of the Shield</h2>
+            <p>The most difficult aspect of structural withholding is that it does not require a conscious, malicious conspiracy to cover up the past. Elders and teachers were entirely insulated by what we call the <strong>narrative of benevolence</strong>.</p>
+            <p>The historical root of this mechanism is President Ulysses S. Grant's "Peace Policy" (or "Quaker Policy") of the 1870s. Quakers stepped into authorities over Native American policy with a profound sense of moral superiority, believing they were 'rescuing' Native children from an 'inferior, vanishing' culture.</p>
+            <blockquote>
+                "...leading them to a higher life than that to which they have been accustomed in their wild condition." <br>
+                <span style="font-size: 0.9rem; font-style: normal; font-weight: bold;">— 1875 Report to the Board of Indian Commissioners</span>
+            </blockquote>
+            <p>Here lies the devastating pivot: soldiers who kill know themselves to be killing. Teachers, on the other hand, sincerely believed they were helping. Sincerity of intent does not alter the physical reality of dispossession; it merely ensures that the settlers can carry out the extraction with a perfectly clean conscience.</p>
+        </section>
+
+        <!-- 3. Case Studies in the Midwestern Soil -->
+        <section id="case-studies">
+            <h2>3. Case Studies in the Midwestern Soil</h2>
+            <p>To move past the disembodied safety of academic terms, we must examine the physical particulars of two lives caught within the Quaker boarding-school machinery.</p>
+            
+            <div class="timeline">
+                <!-- Case 1 -->
+                <div class="timeline-card">
+                    <div class="timeline-date">1883</div>
+                    <h3>The Unmarked Grave of Grace Yellowhair</h3>
+                    <p style="margin-top: 0.5rem;">Grace Yellowhair, a 15-year-old girl from the Arapaho Nation, succumbed to malaria at the West Branch Industrial School in Iowa—operated by a Quaker couple receiving a federal stipend. She was buried in an unmarked grave directly beside Theodore Rogers, an 8-year-old Osage boy.</p>
+                    <button class="map-trigger" onclick="toggleMap('map-grace')">↳ Inspect Engineered Geography</button>
+                    <div id="map-grace" class="map-panel">
+                        <strong>Spatial Proximity:</strong> This grave lay exactly four miles from Scattergood Friends School. Decades later, students ran cross-country on the very gravel roads bordering her cemetery, entirely untaught of her name, her story, or the school's existence. The silence was structural.
+                    </div>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="timeline-card">
+                    <div class="timeline-date">1900</div>
+                    <h3>The Shorn Spirit of Zitkála-Šá</h3>
+                    <p style="margin-top: 0.5rem;">Taken to White's Indiana Manual Labor Institute (operated by Indiana Yearly Meeting of Friends), the Yankton Dakota girl recorded the deep spiritual indignities suffered under Quaker herders in her essay "The School Days of an Indian Girl."</p>
+                    <blockquote>
+                        "As the cold scissors gnawed off my thick braids... Then I lost my spirit."
+                    </blockquote>
+                    <p>She later attended Earlham College—yet her public, devastating testimony remained structurally withheld from the self-understanding of modern Friends walking the same campus.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. The Relational Channel -->
+        <section id="relational-channel">
+            <h2>4. The Relational Channel</h2>
+            <p>Because withheld knowledge resides in a broken relationship, it cannot travel along traditional institutional channels. It requires a relational network strong enough to carry the weight of historical truth. On July 22, 2024, 141 years after her death, Grace Yellowhair's family finally came home via a precise sequence of relational bridges:</p>
+            
+            <div style="border-left: 2px solid var(--border-color); padding-left: 1.5rem; margin: 2rem 0;">
+                <p><strong>1. The Historical Research:</strong> Dr. Peter Hoehnle documents the Miles school and unmarked graves.</p>
+                <p><strong>2. The Local Awakening:</strong> Judy Cottingham of West Branch Meeting discovers the research and alerts Jeff Kisling.</p>
+                <p><strong>3. The National Bridge:</strong> Contact made with Paula Palmer (Quakers and Indian Boarding Schools Research Network).</p>
+                <p><strong>4. The Tribal Connection:</strong> Links established with Frank MedicineWater, a Cheyenne-Arapaho tribal officer.</p>
+                <p><strong>5. The Lineage Confirmed:</strong> Arapaho outreach specialist Fred Mosqueda traces the direct lineage via his wife, Mary Fletcher, back to Grace.</p>
+            </div>
+            
+            <p>Fred Mosqueda, Mary Fletcher, and John Fletcher traveled from Oklahoma to the West Branch Municipal Cemetery. Cedar smoke fanned, prayers were made, and traditional songs were sung to set her spirit free. The taking of a child in 1883 was answered by the active, material homecoming of her family in 2024. This is the difference between feeling guilty and showing up in your body.</p>
+        </section>
+
+        <!-- 5. Mechanics of Structural Separation -->
+        <section id="mechanics-separation">
+            <h2>5. The Mechanics of Structural Separation</h2>
+            <p>Click on each mechanism below to reveal how the 'not knowing' was manufactured, and the necessary decolonial remedy required to break it.</p>
+            
+            <div class="accordion-table">
+                <div class="accordion-row" onclick="toggleAccordion(this)">
+                    <div class="accordion-header">1. Educational Curriculum</div>
+                    <div class="accordion-content">
+                        <p><strong>How It Operated:</strong> Classrooms and textbooks teach a sanitized story of peaceful settlement, screening out the violence of dispossession.</p>
+                        <p><strong>Decolonial Remedy:</strong> Dismantle sanitized histories through networks like GPAS's 'UnBan Critical Race Theory' and establish a living curriculum of tribally-specific histories.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-row" onclick="toggleAccordion(this)">
+                    <div class="accordion-header">2. Institutional Silence</div>
+                    <div class="accordion-content">
+                        <p><strong>How It Operated:</strong> Leaving twenty thousand pages of boarding-school ledgers unread and uncataloged for over a century, preserving a 'benevolent' image.</p>
+                        <p><strong>Decolonial Remedy:</strong> Commit institutional resources to unearth and scan archival ledgers, sending records of deceased children directly back to their home tribes.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-row" onclick="toggleAccordion(this)">
+                    <div class="accordion-header">3. Media Erasure</div>
+                    <div class="accordion-content">
+                        <p><strong>How It Operated:</strong> Mainstream corporate press ignores ongoing Native resistance while amplifying industry and state narratives of public benefit.</p>
+                        <p><strong>Decolonial Remedy:</strong> Create independent digital libraries and media collectives (like firstnationfarmer.com) to bypass corporate filters and amplify Indigenous voices directly.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-row" onclick="toggleAccordion(this)">
+                    <div class="accordion-header">4. Engineered Geography</div>
+                    <div class="accordion-content">
+                        <p><strong>How It Operated:</strong> The reservation system and forced relocations physically removed Native communities from settler sight, preventing relational encounters.</p>
+                        <p><strong>Decolonial Remedy:</strong> Step out of traditional boundaries to show up physically under Indigenous direction on reclaimed land (such as GPAS's Urban Resilience Hub in Iowa City).</p>
+                    </div>
+                </div>
+
+                <div class="accordion-row" onclick="toggleAccordion(this)">
+                    <div class="accordion-header">5. Relational Ethics</div>
+                    <div class="accordion-content">
+                        <p><strong>How It Operated:</strong> Confronting our own extractive desire to 'know' and 'see' others' trauma without earning trust or respecting the rules of oral history traditions.</p>
+                        <p><strong>Decolonial Remedy:</strong> Understand that 'stories have rules' and what reaches us we do not own. Always ask for explicit permission and consent before sharing oral stories.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Complicity in the Modern Tense & Dissenting Views -->
+        <section id="modern-complicity">
+            <h2>6. Complicity in the Modern Tense & Internal Tensions</h2>
+            <p>Settler-colonialism is not a historical event; it is an ongoing structure. During the 2018 Climate Unity March along the Dakota Access Pipeline, a deeper taking became visible. Environmental violence is tied inherently to human violence: pipeline 'man camps' directly drive the crisis of Missing and Murdered Indigenous Relatives (MMIR). This human cost was withheld from settler consciousness until Native women physically carried the truth past ten thousand fenceposts into the light.</p>
+            
+            <p>Yet, an honest inquiry must hold internal tensions without defensive posturing. Critics argue that 'active withholding' implies a level of conscious, malicious deceit that well-meaning educators did not possess—they simply did not know themselves. Others argue that historical reformers were constrained by their time, acting out of a genuine desire to preserve Native life from total military annihilation.</p>
+            <p>Working for material justice creates deep friction. The challenge for young adults is to hold both things at once: the genuine gifts of our tradition and its genuine, historical failures, without letting one dissolve the other.</p>
+        </section>
+
+        <!-- 7. From Guilt to Relinquishment: Practical Discernment -->
+        <section id="practical-discernment">
+            <h2>7. Practical Discernment Journal</h2>
+            <p>Sikowis Nobiss warns that well-meaning faith groups almost always settle for a "cocktail of white guilt combined with a desire to be in proximity to Indigenous folks" that leads only to more inaction. Decolonization requires the actual, material transfer of land, labor, and money. It requires relinquishment.</p>
+            
+            <div class="journal-container">
+                <div class="query-box">
+                    <label class="query-label" for="q1">Query 1: What is our meeting, campus, or community actually being called to relinquish: Land? Money? Our physical comfort? Or our cherished story of our own moral goodness?</label>
+                    <textarea id="q1" class="query-input" placeholder="Type your reflections here..."></textarea>
+                </div>
+
+                <div class="query-box">
+                    <label class="query-label" for="q2">Query 2: Where do we find ourselves hiding behind 'sincere good intentions' or structural 'not my fault' alibis to avoid the discomfort of material repair?</label>
+                    <textarea id="q2" class="query-input" placeholder="Type your reflections here..."></textarea>
+                </div>
+
+                <div class="query-box">
+                    <label class="query-label" for="q3">Query 3: If we are moved by the weight of these stories, what is the specific date for our first physical step toward accountability?</label>
+                    <textarea id="q3" class="query-input" placeholder="Type your reflections here..."></textarea>
+                </div>
+
+                <div class="journal-actions">
+                    <button class="btn-action" onclick="saveJournal()">Save Journal Entry</button>
+                    <button class="btn-action btn-secondary" onclick="clearJournal()">Clear Entries</button>
+                </div>
+                <p class="privacy-note">🔒 Quaker Guardedness Privacy Testimony: Your reflections are saved exclusively to your own local browser storage. No data is transmitted over the network.</p>
+            </div>
+        </section>
+
+        <!-- Dynamic Event Call to Action -->
+        <div class="event-card">
+            <h3>Truth and Liberation In Action Teach-In</h3>
+            <div class="event-date">Saturday, July 25, 2026</div>
+            <p>810 Maiden Lane, Iowa City (GPAS Urban Resilience Hub)</p>
+            <p style="font-size: 0.95rem; color: #ccc; margin-top: 0.5rem;">Come volunteer, eat a first-foods meal prepared by Anthony Warrior, and sit at the fire with Kevin Abourezk. Let the dirt under your nails begin the work that words alone can never finish.</p>
+            <a href="mailto:kislingjeff@gmail.com?subject=RSVP: Truth and Liberation Teach-In 2026" class="btn-rsvp">RSVP & Volunteer Line</a>
+        </div>
+
+        <footer style="margin-top: 5rem; text-align: center; font-size: 0.85rem; color: #666; padding-bottom: 2rem;">
+            "Plain Speech" Minimalist Framework • Grounded in Truth and Right Relationship
+        </footer>
+    </div>
+
+    <!-- Interface Controller Logic -->
+    <script>
+        // 1. Grammatical Pivot Toggle System
+        function setGrammarPivot(mode) {
+            const display = document.getElementById('pivot-display');
+            const explanation = document.getElementById('pivot-explanation');
+            const btnPassive = document.getElementById('btn-passive');
+            const btnActive = document.getElementById('btn-active');
+
+            if (mode === 'passive') {
+                btnPassive.classList.add('active');
+                btnActive.classList.remove('active');
+                display.innerText = '"What did not reach us."';
+                display.style.color = 'var(--text-color)';
+                explanation.innerText = 'This framing implies a historical misfortune without an agent—like a letter accidentally lost in the mail. It shields us from responsibility.';
+            } else {
+                btnPassive.classList.remove('active');
+                btnActive.classList.add('active');
+                display.innerText = '"We did not let it reach us."';
+                display.style.color = 'var(--accent-color)';
+                explanation.innerText = 'The grammatical active conversion. The silence was not an empty vacuum; it was a manufactured shield protecting our intergenerational narrative of goodness.';
+            }
+        }
+
+        // 2. Timeline Geospatial Map Panels
+        function toggleMap(id) {
+            const panel = document.getElementById(id);
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
+            } else {
+                panel.style.display = 'block';
+            }
+        }
+
+        // 3. Interactive Mechanics Accordion Table System
+        function toggleAccordion(element) {
+            // Close all other rows for cleaner focus
+            const rows = document.querySelectorAll('.accordion-row');
+            rows.forEach(row => {
+                if (row !== element) {
+                    row.classList.remove('open');
+                    row.querySelector('.accordion-content').style.display = 'none';
+                }
+            });
+
+            // Toggle active row
+            element.classList.toggle('open');
+            const content = element.querySelector('.accordion-content');
+            if (element.classList.contains('open')) {
+                content.style.display = 'block';
+            } else {
+                content.style.display = 'none';
+            }
+        }
+
+        // 4. Local-Browser Guardedness Reflection Journal Storage Engine
+        function saveJournal() {
+            localStorage.setItem('ub_q1', document.getElementById('q1').value);
+            localStorage.setItem('ub_q2', document.getElementById('q2').value);
+            localStorage.setItem('ub_q3', document.getElementById('q3').value);
+            alert('Your reflections have been safely committed locally to your browser.');
+        }
+
+        function clearJournal() {
+            if(confirm('Are you sure you want to clear your structural reflections?')) {
+                document.getElementById('q1').value = '';
+                document.getElementById('q2').value = '';
+                document.getElementById('q3').value = '';
+                localStorage.removeItem('ub_q1');
+                localStorage.removeItem('ub_q2');
+                localStorage.removeItem('ub_q3');
+            }
+        }
+
+        // Load baseline data on page instantiation
+        window.onload = function() {
+            if(localStorage.getItem('ub_q1')) document.getElementById('q1').value = localStorage.getItem('ub_q1');
+            if(localStorage.getItem('ub_q2')) document.getElementById('q2').value = localStorage.getItem('ub_q2');
+            if(localStorage.getItem('ub_q3')) document.getElementById('q3').value = localStorage.getItem('ub_q3');
+        }
+    </script>
+</body>
+</html>
